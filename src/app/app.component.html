@@ -5,7 +5,9 @@
 <section class="campaigns">
   <div class="campaigns__container">
     <ul class="campaigns__list">
-      <app-campaign></app-campaign>
+      @for (campaign of campaigns; track campaign) {
+      <app-campaign [campaign]="campaign"></app-campaign>
+      }
     </ul>
   </div>
 </section>

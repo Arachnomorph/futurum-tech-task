@@ -16,6 +16,7 @@ export class CampaignAdderComponent {
   towns = ['', 'London', 'Manchester', 'Liverpool', 'Birmingham']; //TODO: Get this from a service
   statuses = ['On', 'Off']; //TODO: Get this from a service
   bidMin = 50;
+  eBalance = 1000; // TODO: Get this from a service
 
   campaignForm = new FormGroup({
     campaignName: new FormControl('', Validators.required),
@@ -35,5 +36,6 @@ export class CampaignAdderComponent {
 
   addCampaign() {
     console.log(this.campaignForm.value);
+    this.campaignForm.reset();
   }
 }
