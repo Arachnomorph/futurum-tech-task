@@ -13,6 +13,13 @@
         formControlName="campaignName"
         required
       />
+      @if (campaignForm.get('campaignName')?.invalid &&(
+      campaignForm.get('campaignName')?.dirty ||
+      campaignForm.get('campaignName')?.touched)) {
+      <div class="campaign-name-error__container">
+        <p class="campaign-name-error">Name required</p>
+      </div>
+      }
     </div>
     <div class="campaign-adder__form-group">
       <label for="campaignKeywords">Keywords</label>
@@ -23,6 +30,13 @@
         formControlName="campaignKeywords"
         required
       />
+      @if (campaignForm.get('campaignKeywords')?.invalid &&(
+      campaignForm.get('campaignKeywords')?.dirty ||
+      campaignForm.get('campaignKeywords')?.touched)) {
+      <div class="campaign-keywords-error__container">
+        <p class="campaign-keywords-error">At least one keyword required</p>
+      </div>
+      }
     </div>
     <div class="campaign-adder__form-group">
       <label for="campaingBid">Bid amount</label>
@@ -33,6 +47,18 @@
         formControlName="campaignBid"
         required
       />
+      @if (campaignForm.get('campaignBid')?.invalid &&(
+      campaignForm.get('campaignBid')?.dirty ||
+      campaignForm.get('campaignBid')?.touched)) {
+      <div class="campaign-bid-error__container">
+        <p class="campaign-bid-error">
+          @if (campaignForm.get('campaignBid')?.hasError('min')) { Bid amount
+          must be at least {{ this.bidMin }}
+          } @if (campaignForm.get('campaignBid')?.hasError('required')) { Bid
+          amount required }
+        </p>
+      </div>
+      }
     </div>
     <div class="campaign-adder__form-group">
       <label for="campaignFund">Campaign fund</label>
@@ -43,27 +69,27 @@
         formControlName="campaignFund"
         required
       />
+      @if (campaignForm.get('campaignFund')?.invalid &&(
+      campaignForm.get('campaignFund')?.dirty ||
+      campaignForm.get('campaignFund')?.touched)) {
+      <div class="campaign-fund-error__container">
+        <p class="campaign-fund-error">Fund required</p>
+      </div>
+      }
     </div>
     <div class="campaign-adder__form-group">
       <p>Campaign status</p>
+      @for (status of statuses; track status) {
       <input
         type="radio"
-        id="campaignStatusOn"
-        value="on"
+        id="campaignStatus{{ status }}"
+        value="{{ status }}"
         name="campaignStatus"
         formControlName="campaignStatus"
         required
       />
-      <label for="campaignStatusOn">On</label>
-      <input
-        type="radio"
-        id="campaignStatusOff"
-        value="off"
-        name="campaignStatus"
-        formControlName="campaignStatus"
-        required
-      />
-      <label for="campaignStatusOff">Off</label>
+      <label for="campaignStatus{{ status }}">{{ status }}</label>
+      }
     </div>
     <div class="campaign-adder__form-group">
       <label for="campaignTown">Town</label>
@@ -77,6 +103,13 @@
         <option value="{{ town }}">{{ town }}</option>
         }
       </select>
+      @if (campaignForm.get('campaignTown')?.invalid &&(
+      campaignForm.get('campaignTown')?.dirty ||
+      campaignForm.get('campaignTown')?.touched)) {
+      <div class="campaign-town-error__container">
+        <p class="campaign-town-error">Town required</p>
+      </div>
+      }
     </div>
     <div class="campaign-adder__form-group">
       <label for="campaignRadius">Radius</label>
@@ -87,9 +120,23 @@
         formControlName="campaignRadius"
         required
       />
+      <p>km</p>
+      @if (campaignForm.get('campaignRadius')?.invalid &&(
+      campaignForm.get('campaignRadius')?.dirty ||
+      campaignForm.get('campaignRadius')?.touched)) {
+      <div class="campaign-radius-error__container">
+        <p class="campaign-radius-error">Radius required (can be 0)</p>
+      </div>
+      }
     </div>
     <div class="campaign-adder__form-group">
-      <button type="submit" class="campaign-adder__add-button">Add</button>
+      <button
+        type="submit"
+        class="campaign-adder__add-button"
+        [disabled]="campaignForm.invalid"
+      >
+        Add
+      </button>
       <button class="campaign-adder__cancel-button">Cancel</button>
     </div>
   </form>
