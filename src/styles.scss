@@ -1,1 +1,168 @@
-/* You can add global styles to this file, and also import other style files */
+@use "./scss-variables.scss" as vars;
+
+//globals
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+  background-color: #f0f0f5;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+button {
+  cursor: pointer;
+  padding: 5px;
+  margin: vars.$small-margin;
+}
+
+app-root {
+  width: 500px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.top-bar,
+app-campaign-adder {
+  width: 100%;
+}
+
+label {
+  margin-bottom: vars.$small-margin;
+}
+
+//forms
+
+input,
+select {
+  width: 100%;
+  height: 30px;
+  padding: 5px;
+  border-radius: 0;
+  border: 1px solid vars.$base-color;
+  background-color: vars.$accent-color;
+}
+
+input[type="radio"] {
+  accent-color: vars.$accent-color;
+  margin: vars.$small-margin;
+}
+
+.top-bar__container {
+  height: 50px;
+  background-color: vars.$accent-color;
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 10px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+}
+
+.campaign-adder__container {
+  padding: 10px;
+  margin-bottom: 2 * vars.$small-margin;
+  border: 2px solid vars.$base-color;
+  background-color: #d0d0d5;
+}
+
+.campaign-adder__form-group {
+  width: 100%;
+  min-height: 80px;
+  margin-bottom: vars.$small-margin;
+
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+.fund-extras {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row-reverse;
+}
+
+.radio-group {
+  min-height: 40px;
+}
+
+.radio-label {
+  margin: 0;
+}
+
+.radio-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: row;
+}
+
+.radio-item {
+  min-width: 50px;
+  margin-right: 2 * vars.$small-margin;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+}
+
+.campaign-adder__buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+}
+
+.emerald-balance {
+  margin-top: vars.$small-margin;
+}
+
+.form-error {
+  margin-top: vars.$small-margin;
+  color: vars.$error-color;
+}
+
+//campaigns list
+
+.campaigns {
+  align-self: flex-start;
+  min-width: 250px;
+}
+
+.campaigns__list {
+  list-style: none;
+}
+
+.campaigns-item {
+  padding: 2 * vars.$small-margin;
+  min-width: 50%;
+  border: 2px solid vars.$base-color;
+  margin-bottom: vars.$small-margin;
+}
+
+app-campaign {
+  & > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: vars.$small-margin;
+    & > button {
+      margin: 0;
+    }
+  }
+}

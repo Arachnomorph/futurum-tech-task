@@ -17,7 +17,7 @@
       campaignForm.get('campaignName')?.dirty ||
       campaignForm.get('campaignName')?.touched)) {
       <div class="campaign-name-error__container">
-        <p class="campaign-name-error">Name required</p>
+        <p class="form-error">Name required</p>
       </div>
       }
     </div>
@@ -34,7 +34,7 @@
       campaignForm.get('campaignKeywords')?.dirty ||
       campaignForm.get('campaignKeywords')?.touched)) {
       <div class="campaign-keywords-error__container">
-        <p class="campaign-keywords-error">At least one keyword required</p>
+        <p class="form-error">At least one keyword required</p>
       </div>
       }
     </div>
@@ -51,7 +51,7 @@
       campaignForm.get('campaignBid')?.dirty ||
       campaignForm.get('campaignBid')?.touched)) {
       <div class="campaign-bid-error__container">
-        <p class="campaign-bid-error">
+        <p class="form-error">
           @if (campaignForm.get('campaignBid')?.hasError('min')) { Bid amount
           must be at least {{ this.bidMin }}
           } @if (campaignForm.get('campaignBid')?.hasError('required')) { Bid
@@ -69,28 +69,36 @@
         formControlName="campaignFund"
         required
       />
-      @if (campaignForm.get('campaignFund')?.invalid &&(
-      campaignForm.get('campaignFund')?.dirty ||
-      campaignForm.get('campaignFund')?.touched)) {
-      <div class="campaign-fund-error__container">
-        <p class="campaign-fund-error">Fund required</p>
+      <div class="fund-extras">
+        <p class="emerald-balance">
+          Emerald Account balance: {{ this.eBalance }}
+        </p>
+        @if (campaignForm.get('campaignFund')?.invalid &&(
+        campaignForm.get('campaignFund')?.dirty ||
+        campaignForm.get('campaignFund')?.touched)) {
+        <div class="campaign-fund-error__container">
+          <p class="form-error">Fund required</p>
+        </div>
+        }
       </div>
-      }
-      <p>Emerald Account balance: {{ this.eBalance }}</p>
     </div>
-    <div class="campaign-adder__form-group">
+    <div class="campaign-adder__form-group radio-group">
       <p>Campaign status</p>
-      @for (status of statuses; track status) {
-      <input
-        type="radio"
-        id="campaignStatus{{ status }}"
-        value="{{ status }}"
-        name="campaignStatus"
-        formControlName="campaignStatus"
-        required
-      />
-      <label for="campaignStatus{{ status }}">{{ status }}</label>
-      }
+      <div class="radio-container">
+        @for (status of statuses; track status) {
+        <div class="radio-item">
+          <input
+            type="radio"
+            id="campaignStatus{{ status }}"
+            value="{{ status }}"
+            name="campaignStatus"
+            formControlName="campaignStatus"
+            required
+          />
+          <label class="radio-label" for="campaignStatus{{ status }}">{{ status }}</label>
+        </div>
+        }
+      </div>
     </div>
     <div class="campaign-adder__form-group">
       <label for="campaignTown">Town</label>
@@ -108,7 +116,7 @@
       campaignForm.get('campaignTown')?.dirty ||
       campaignForm.get('campaignTown')?.touched)) {
       <div class="campaign-town-error__container">
-        <p class="campaign-town-error">Town required</p>
+        <p class="form-error">Town required</p>
       </div>
       }
     </div>
@@ -126,17 +134,17 @@
       campaignForm.get('campaignRadius')?.dirty ||
       campaignForm.get('campaignRadius')?.touched)) {
       <div class="campaign-radius-error__container">
-        <p class="campaign-radius-error">Radius required (can be 0)</p>
+        <p class="form-error">Radius required (can be 0)</p>
       </div>
       }
     </div>
-    <div class="campaign-adder__form-group">
+    <div class="campaign-adder__buttons">
       <button
         type="submit"
         class="campaign-adder__add-button"
         [disabled]="campaignForm.invalid"
       >
-        Add
+        @if (campaignForm.invalid) { Fill in all fields to add } @else {Add}
       </button>
       <button class="campaign-adder__cancel-button">Cancel</button>
     </div>
