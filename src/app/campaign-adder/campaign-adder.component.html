@@ -71,7 +71,7 @@
       />
       <div class="fund-extras">
         <p class="emerald-balance">
-          Emerald Account balance: {{ this.eBalance }}
+          Emerald Account balance: {{ this.tempEBalance }}
         </p>
         @if (campaignForm.get('campaignFund')?.invalid &&(
         campaignForm.get('campaignFund')?.dirty ||
@@ -95,7 +95,9 @@
             formControlName="campaignStatus"
             required
           />
-          <label class="radio-label" for="campaignStatus{{ status }}">{{ status }}</label>
+          <label class="radio-label" for="campaignStatus{{ status }}">{{
+            status
+          }}</label>
         </div>
         }
       </div>

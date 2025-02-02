@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   ReactiveFormsModule,
   FormControl,
@@ -12,11 +12,12 @@ import {
   templateUrl: './campaign-adder.component.html',
   styleUrl: './campaign-adder.component.scss',
 })
-export class CampaignAdderComponent {
+export class CampaignAdderComponent implements OnInit {
   towns = ['', 'London', 'Manchester', 'Liverpool', 'Birmingham']; //TODO: Get this from a service
   statuses = ['On', 'Off']; //TODO: Get this from a service
   bidMin = 50;
   eBalance = 1000; // TODO: Get this from a service
+  tempEBalance = this.eBalance;
 
   campaignForm = new FormGroup({
     campaignName: new FormControl('', Validators.required),
@@ -33,6 +34,17 @@ export class CampaignAdderComponent {
     ]),
     campaignRadius: new FormControl('', Validators.required),
   });
+
+  ngOnInit(): void {
+    this.campaignForm.get('campaignFund')?.valueChanges.subscribe((value) => {
+      if (value == null) {
+        this.tempEBalance = this.eBalance;
+      }
+      if (typeof value === 'number') {
+        this.tempEBalance = this.eBalance - value;
+      }
+    });
+  }
 
   addCampaign() {
     console.log(this.campaignForm.value);
