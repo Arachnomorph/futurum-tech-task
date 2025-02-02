@@ -6,11 +6,20 @@ import {
   Validators,
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatInputModule } from '@angular/material/input';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
 import events from '../event.service';
 
 @Component({
   selector: 'app-campaign-form',
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [
+    ReactiveFormsModule,
+    CommonModule,
+    MatAutocompleteModule,
+    MatInputModule,
+  ],
   templateUrl: './campaign-form.component.html',
   styleUrl: './campaign-form.component.scss',
 })
@@ -22,6 +31,19 @@ export class CampaignFormComponent implements OnInit {
   tempEBalance = this.eBalance;
   formType: string = 'add';
   isActive: boolean = false;
+  keywords: string[] = [
+    'glow',
+    'one',
+    'furtive',
+    'value',
+    'board',
+    'cellar',
+    'introduce',
+    'flower',
+    'good',
+    'pets',
+  ];
+  filteredKeywords: Observable<string[]> | undefined;
 
   campaignForm = new FormGroup({
     campaignName: new FormControl('', Validators.required),
@@ -54,6 +76,20 @@ export class CampaignFormComponent implements OnInit {
     this.campaignForm.get('campaignFund')?.valueChanges.subscribe((value) => {
       this.updateTempEBalance(value);
     });
+
+    this.filteredKeywords = this.campaignForm
+      .get('campaignKeywords')
+      ?.valueChanges.pipe(
+        startWith(''),
+        map((value) => this._filter(value || ''))
+      );
+  }
+
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+    return this.keywords.filter((keyword) => {
+      return keyword.toLowerCase().includes(filterValue);
+    });
   }
 
   toggleActive() {
@@ -77,6 +113,7 @@ export class CampaignFormComponent implements OnInit {
 
   editCampaign() {
     console.log('Write editing logic!');
+    this.campaignForm.reset();
     this.isActive ? this.toggleActive() : null;
   }
 }

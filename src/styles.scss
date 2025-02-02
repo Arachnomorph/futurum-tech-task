@@ -14,7 +14,7 @@ body {
 
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
 }
 
 button {
@@ -175,7 +175,7 @@ input[type="radio"] {
   padding: 2 * vars.$small-margin;
   min-width: 50%;
   border: 2px solid vars.$base-color;
-  margin-bottom: vars.$small-margin;
+  margin-top: vars.$small-margin;
 }
 
 app-campaign {
@@ -188,4 +188,26 @@ app-campaign {
       margin: 0;
     }
   }
+}
+
+.campaign-item-buttons__container {
+  margin: 0;
+}
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }

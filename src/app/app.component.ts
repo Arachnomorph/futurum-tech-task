@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // import { RouterOutlet } from '@angular/router';
 import { TopBarComponent } from './top-bar/top-bar.component';
 import { CampaignComponent } from './campaign/campaign.component';
@@ -24,6 +26,7 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.CampaignsService.getCampaigns().subscribe((data) => {
       this.campaigns = data;
+      console.log(data);
     });
   }
 

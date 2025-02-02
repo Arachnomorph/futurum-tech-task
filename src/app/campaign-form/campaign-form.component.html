@@ -27,8 +27,15 @@
         id="campaignKeywords"
         name="campaignKeywords"
         formControlName="campaignKeywords"
+        matInput
         required
+        [matAutocomplete]="auto"
       />
+      <mat-autocomplete #auto="matAutocomplete">
+        @for (word of filteredKeywords | async; track word) {
+        <mat-option [value]="word">{{ word }}</mat-option>
+        }
+      </mat-autocomplete>
       @if (campaignForm.get('campaignKeywords')?.invalid &&(
       campaignForm.get('campaignKeywords')?.dirty ||
       campaignForm.get('campaignKeywords')?.touched)) {
@@ -162,7 +169,7 @@
 
       <button
         class="campaign-form__cancel-button"
-        (click)="isActive ? toggleActive() : null"
+        (click)="toggleActive(); this.campaignForm.reset()"
       >
         Cancel
       </button>
