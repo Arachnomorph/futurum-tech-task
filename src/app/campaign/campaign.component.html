@@ -27,6 +27,6 @@
   <p>{{ campaign.radius }}</p>
 </div>
 <div class="campaign-item-buttons__container">
-  <button>Delete</button>
-  <button>Edit</button>
+  <button (click)="deleteCampaign()">Delete</button>
+  <button (click)="initializeEditForm()">Edit</button>
 </div>

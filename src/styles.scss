@@ -32,16 +32,37 @@ app-root {
   flex-direction: column;
 }
 
-.top-bar,
-app-campaign-adder {
-  width: 100%;
-}
-
 label {
   margin-bottom: vars.$small-margin;
 }
 
+//topbar
+
+.top-bar {
+  width: 100%;
+  position: sticky;
+  top: 0;
+}
+
+.top-bar__container {
+  height: 50px;
+  background-color: vars.$accent-color;
+  width: 100%;
+  padding: 10px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+}
+
 //forms
+
+app-campaign-form {
+  width: 100%;
+  position: sticky;
+  top: 50px;
+}
 
 input,
 select {
@@ -58,27 +79,29 @@ input[type="radio"] {
   margin: vars.$small-margin;
 }
 
-.top-bar__container {
-  height: 50px;
-  background-color: vars.$accent-color;
-  width: 100%;
-  margin-bottom: 20px;
-  padding: 10px;
-
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-direction: row;
-}
-
-.campaign-adder__container {
+.campaign-form__container {
   padding: 10px;
   margin-bottom: 2 * vars.$small-margin;
   border: 2px solid vars.$base-color;
   background-color: #d0d0d5;
+
+  &.inactive {
+    display: none;
+  }
+
+  &.active {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
 }
 
-.campaign-adder__form-group {
+.campaign-form__form {
+  width: 100%;
+}
+
+.campaign-form__form-group {
   width: 100%;
   min-height: 80px;
   margin-bottom: vars.$small-margin;
@@ -121,7 +144,7 @@ input[type="radio"] {
   flex-direction: row;
 }
 
-.campaign-adder__buttons {
+.campaign-form__buttons {
   display: flex;
   justify-content: space-between;
   align-items: center;

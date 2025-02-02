@@ -1,10 +1,9 @@
-<div class="campaign-adder__container">
-  <form
-    [formGroup]="campaignForm"
-    class="campaign-adder__form"
-    (ngSubmit)="addCampaign()"
-  >
-    <div class="campaign-adder__form-group">
+<div
+  class="campaign-form__container"
+  [ngClass]="{ active: isActive, inactive: !isActive }"
+>
+  <form [formGroup]="campaignForm" class="campaign-form__form">
+    <div class="campaign-form__form-group">
       <label for="campaignName">Name</label>
       <input
         type="text"
@@ -21,7 +20,7 @@
       </div>
       }
     </div>
-    <div class="campaign-adder__form-group">
+    <div class="campaign-form__form-group">
       <label for="campaignKeywords">Keywords</label>
       <input
         type="text"
@@ -38,7 +37,7 @@
       </div>
       }
     </div>
-    <div class="campaign-adder__form-group">
+    <div class="campaign-form__form-group">
       <label for="campaingBid">Bid amount</label>
       <input
         type="number"
@@ -60,7 +59,7 @@
       </div>
       }
     </div>
-    <div class="campaign-adder__form-group">
+    <div class="campaign-form__form-group">
       <label for="campaignFund">Campaign fund</label>
       <input
         type="number"
@@ -82,7 +81,7 @@
         }
       </div>
     </div>
-    <div class="campaign-adder__form-group radio-group">
+    <div class="campaign-form__form-group radio-group">
       <p>Campaign status</p>
       <div class="radio-container">
         @for (status of statuses; track status) {
@@ -102,7 +101,7 @@
         }
       </div>
     </div>
-    <div class="campaign-adder__form-group">
+    <div class="campaign-form__form-group">
       <label for="campaignTown">Town</label>
       <select
         id="campaignTown"
@@ -122,7 +121,7 @@
       </div>
       }
     </div>
-    <div class="campaign-adder__form-group">
+    <div class="campaign-form__form-group">
       <label for="campaignRadius">Radius</label>
       <input
         type="number"
@@ -140,15 +139,33 @@
       </div>
       }
     </div>
-    <div class="campaign-adder__buttons">
+    <div class="campaign-form__buttons">
+      @if (formType === 'edit') {
       <button
-        type="submit"
-        class="campaign-adder__add-button"
+        (click)="editCampaign()"
+        class="campaign-form__edit-button"
         [disabled]="campaignForm.invalid"
       >
-        @if (campaignForm.invalid) { Fill in all fields to add } @else {Add}
+        @if (campaignForm.invalid) { Fill in all fields before saving } @else
+        {Save changes}
       </button>
-      <button class="campaign-adder__cancel-button">Cancel</button>
+      } @else {
+      <button
+        (click)="addCampaign()"
+        class="campaign-form__add-button"
+        [disabled]="campaignForm.invalid"
+      >
+        @if (campaignForm.invalid) { Fill in all fields to add } @else {Add
+        Campaign}
+      </button>
+      }
+
+      <button
+        class="campaign-form__cancel-button"
+        (click)="isActive ? toggleActive() : null"
+      >
+        Cancel
+      </button>
     </div>
   </form>
 </div>

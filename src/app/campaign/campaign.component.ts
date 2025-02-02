@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import events from '../event.service';
 
 @Component({
   selector: 'app-campaign',
@@ -17,4 +18,12 @@ export class CampaignComponent {
     town: string;
     radius: number;
   };
+
+  initializeEditForm() {
+    events.emit('initializeEditForm', this.campaign);
+  }
+
+  deleteCampaign() {
+    console.log('write campaign deletion logic!');
+  }
 }

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 // import { RouterOutlet } from '@angular/router';
 import { TopBarComponent } from './top-bar/top-bar.component';
 import { CampaignComponent } from './campaign/campaign.component';
-import { CampaignAdderComponent } from './campaign-adder/campaign-adder.component';
+import { CampaignFormComponent } from './campaign-form/campaign-form.component';
 import { CampaignsService } from './campaigns.service';
 
 @Component({
@@ -11,7 +11,7 @@ import { CampaignsService } from './campaigns.service';
     // RouterOutlet,
     TopBarComponent,
     CampaignComponent,
-    CampaignAdderComponent,
+    CampaignFormComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
