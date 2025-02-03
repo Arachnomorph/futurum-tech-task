@@ -173,9 +173,13 @@ input[type="radio"] {
 
 .campaigns-item {
   padding: 2 * vars.$small-margin;
-  min-width: 50%;
+  width: 80%;
   border: 2px solid vars.$base-color;
   margin-top: vars.$small-margin;
+}
+
+.campaign-item-value {
+  width: 50%;
 }
 
 app-campaign {
@@ -183,7 +187,7 @@ app-campaign {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: vars.$small-margin;
+    margin-bottom: 2 * vars.$small-margin;
     & > button {
       margin: 0;
     }

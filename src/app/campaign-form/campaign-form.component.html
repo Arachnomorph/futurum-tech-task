@@ -45,7 +45,9 @@
       @if (savedKeywords.length < 1 &&( campaignForm.get('keywords')?.dirty ||
       campaignForm.get('keywords')?.touched)) {
       <div class="campaign-keywords-error__container">
-        <p class="form-error">At least one keyword required</p>
+        <p class="form-error">
+          At least one keyword required, confirm with enter
+        </p>
       </div>
       }
     </div>
