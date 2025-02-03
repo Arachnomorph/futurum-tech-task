@@ -3,6 +3,10 @@
   [ngClass]="{ active: isActive, inactive: !isActive }"
 >
   <form [formGroup]="campaignForm" class="campaign-form__form">
+    <div class="campaign-form__form-group" style="display: none">
+      <label for="id">id</label>
+      <input type="number" id="id" name="id" formControlName="id" />
+    </div>
     <div class="campaign-form__form-group">
       <label for="name">Name</label>
       <input
@@ -101,19 +105,13 @@
     </div>
     <div class="campaign-form__form-group">
       <label for="town">Town</label>
-      <select
-        id="town"
-        name="town"
-        formControlName="town"
-        required
-      >
+      <select id="town" name="town" formControlName="town" required>
         @for (town of towns; track town) {
         <option value="{{ town }}">{{ town }}</option>
         }
       </select>
-      @if (campaignForm.get('town')?.invalid &&(
-      campaignForm.get('town')?.dirty ||
-      campaignForm.get('town')?.touched)) {
+      @if (campaignForm.get('town')?.invalid &&( campaignForm.get('town')?.dirty
+      || campaignForm.get('town')?.touched)) {
       <div class="campaign-town-error__container">
         <p class="form-error">Town required</p>
       </div>
@@ -130,8 +128,8 @@
       />
       <p>km</p>
       @if (campaignForm.get('radius')?.invalid &&(
-      campaignForm.get('radius')?.dirty ||
-      campaignForm.get('radius')?.touched)) {
+      campaignForm.get('radius')?.dirty || campaignForm.get('radius')?.touched))
+      {
       <div class="campaign-radius-error__container">
         <p class="form-error">Radius required (can be 0)</p>
       </div>
@@ -160,7 +158,11 @@
 
       <button
         class="campaign-form__cancel-button"
-        (click)="toggleActive(); this.campaignForm.reset()"
+        (click)="
+          toggleActive();
+          this.campaignForm.reset();
+          this.campaignForm.patchValue({ isDeleted: false, status: 'Off' })
+        "
       >
         Cancel
       </button>

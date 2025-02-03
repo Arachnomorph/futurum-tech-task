@@ -9,6 +9,7 @@ import events from '../event.service';
 })
 export class CampaignComponent {
   @Input() campaign!: {
+    isDeleted: boolean;
     id: number;
     name: string;
     keywords: string;
@@ -21,9 +22,10 @@ export class CampaignComponent {
 
   initializeEditForm() {
     events.emit('initializeEditForm', this.campaign);
+    // console.log(this.campaign.id);
   }
 
   deleteCampaign() {
-    console.log('write campaign deletion logic!');
+    events.emit('deleteCampaign', this.campaign);
   }
 }

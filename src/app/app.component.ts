@@ -33,7 +33,7 @@ interface Campaign {
 export class AppComponent implements OnInit {
   constructor(private CampaignsService: CampaignsService) {}
   public data: any;
-  campaigns: any;
+  campaigns!: any[];
 
   ngOnInit(): void {
     this.CampaignsService.getData().subscribe((response) => {
@@ -43,8 +43,17 @@ export class AppComponent implements OnInit {
     });
 
     events.listen('addCampaign', (data) => {
+      data.id = this.campaigns.length;
       // console.log(data);
       this.campaigns.push(data);
+    });
+
+    events.listen('editCampaign', (data) => {
+      this.campaigns[data.id] = data;
+    });
+
+    events.listen('deleteCampaign', (data) => {
+      data.isDeleted = true;
     });
   }
 

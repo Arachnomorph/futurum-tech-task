@@ -47,6 +47,8 @@ export class CampaignFormComponent implements OnInit {
   filteredKeywords: Observable<string[]> | undefined;
 
   campaignForm = new FormGroup({
+    isDeleted: new FormControl(false),
+    id: new FormControl(0),
     name: new FormControl('', Validators.required),
     keywords: new FormControl('', Validators.required),
     bid: new FormControl('', [
@@ -113,15 +115,18 @@ export class CampaignFormComponent implements OnInit {
   }
 
   addCampaign() {
-    events.emit('addCampaign', this.campaignForm.value);
-    console.log(this.campaignForm.value);
+    let data = this.campaignForm.value;
+    events.emit('addCampaign', data);
+    console.log(data);
     this.campaignForm.reset();
+    this.campaignForm.patchValue({ isDeleted: false, status: 'Off' });
     this.isActive ? this.toggleActive() : null;
   }
 
   editCampaign() {
     events.emit('editCampaign', this.campaignForm.value);
     this.campaignForm.reset();
+    this.campaignForm.patchValue({ isDeleted: false, status: 'Off' });
     this.isActive ? this.toggleActive() : null;
   }
 }

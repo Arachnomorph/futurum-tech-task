@@ -1,6 +1,7 @@
 {
   "campaigns": [
     {
+      "isDeleted": false,
       "id": 0,
       "name": "Campaign 1",
       "keywords": ["foo", "bar"],
@@ -11,6 +12,7 @@
       "radius": 50
     },
     {
+      "isDeleted": false,
       "id": 1,
       "name": "Campaign 2",
       "keywords": ["foo", "bar"],
