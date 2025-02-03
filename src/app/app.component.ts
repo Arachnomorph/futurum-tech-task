@@ -43,9 +43,10 @@ export class AppComponent implements OnInit {
     });
 
     events.listen('addCampaign', (data) => {
-      data.id = this.campaigns.length;
-      // console.log(data);
-      this.campaigns.push(data);
+      data.form.id = this.campaigns.length;
+      data.form.keywords = data.words;
+      console.log(data.form);
+      this.campaigns.push(data.form);
     });
 
     events.listen('editCampaign', (data) => {

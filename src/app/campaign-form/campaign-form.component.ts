@@ -25,32 +25,22 @@ import events from '../event.service';
   styleUrl: './campaign-form.component.scss',
 })
 export class CampaignFormComponent implements OnInit {
-  towns = ['', 'London', 'Manchester', 'Liverpool', 'Birmingham']; //TODO: Get this from a service
+  towns: string[] = [''];
   statuses = ['On', 'Off'];
   bidMin = 50;
   eBalance = 0;
   tempEBalance = this.eBalance;
   formType: string = 'add';
   isActive: boolean = false;
-  keywords: string[] = [
-    'glow',
-    'one',
-    'furtive',
-    'value',
-    'board',
-    'cellar',
-    'introduce',
-    'flower',
-    'good',
-    'pets',
-  ];
+  keywords: string[] = [''];
   filteredKeywords: Observable<string[]> | undefined;
+  savedKeywords: string[] = [];
 
   campaignForm = new FormGroup({
     isDeleted: new FormControl(false),
     id: new FormControl(0),
     name: new FormControl('', Validators.required),
-    keywords: new FormControl('', Validators.required),
+    keywords: new FormControl(''),
     bid: new FormControl('', [
       Validators.required,
       Validators.min(this.bidMin),
@@ -77,8 +67,10 @@ export class CampaignFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.CampaignsService.getData().subscribe((response) => {
-      let data = response.emeraldAccountBalance;
-      this.eBalance = data;
+      let data = response;
+      this.eBalance = data.emeraldAccountBalance;
+      this.keywords = data.keywordList;
+      this.towns.push(...data.towns);
       this.tempEBalance = this.eBalance;
     });
 
@@ -105,6 +97,14 @@ export class CampaignFormComponent implements OnInit {
     this.isActive = !this.isActive;
   }
 
+  confirmKeyword() {
+    let word = this.campaignForm.get('keywords')?.value;
+    this.campaignForm.patchValue({ keywords: '' });
+    if (typeof word === 'string') {
+      this.savedKeywords.push(' ' + word);
+    }
+  }
+
   updateTempEBalance(value: string | number | null) {
     if (value == null) {
       this.tempEBalance = this.eBalance;
@@ -115,10 +115,11 @@ export class CampaignFormComponent implements OnInit {
   }
 
   addCampaign() {
-    let data = this.campaignForm.value;
+    let data = { form: this.campaignForm.value, words: this.savedKeywords };
     events.emit('addCampaign', data);
-    // console.log(data);
+    console.log(data);
     this.campaignForm.reset();
+    this.savedKeywords = [];
     this.campaignForm.patchValue({ isDeleted: false, status: 'Off' });
     this.isActive ? this.toggleActive() : null;
   }
@@ -126,6 +127,7 @@ export class CampaignFormComponent implements OnInit {
   editCampaign() {
     events.emit('editCampaign', this.campaignForm.value);
     this.campaignForm.reset();
+    this.savedKeywords = [];
     this.campaignForm.patchValue({ isDeleted: false, status: 'Off' });
     this.isActive ? this.toggleActive() : null;
   }
