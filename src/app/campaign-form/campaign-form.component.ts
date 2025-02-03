@@ -117,7 +117,7 @@ export class CampaignFormComponent implements OnInit {
   addCampaign() {
     let data = this.campaignForm.value;
     events.emit('addCampaign', data);
-    console.log(data);
+    // console.log(data);
     this.campaignForm.reset();
     this.campaignForm.patchValue({ isDeleted: false, status: 'Off' });
     this.isActive ? this.toggleActive() : null;
