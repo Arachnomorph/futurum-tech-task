@@ -164,16 +164,16 @@ input[type="radio"] {
 
 .campaigns {
   align-self: flex-start;
-  min-width: 250px;
+  width: 80%;
 }
 
 .campaigns__list {
   list-style: none;
+  width: 100%;
 }
 
 .campaigns-item {
   padding: 2 * vars.$small-margin;
-  width: 80%;
   border: 2px solid vars.$base-color;
   margin-top: vars.$small-margin;
 }
