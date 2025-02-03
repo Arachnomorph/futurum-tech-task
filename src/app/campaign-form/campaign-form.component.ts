@@ -10,6 +10,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatInputModule } from '@angular/material/input';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
+import { CampaignsService } from '../campaigns.service';
 import events from '../event.service';
 
 @Component({
@@ -25,9 +26,9 @@ import events from '../event.service';
 })
 export class CampaignFormComponent implements OnInit {
   towns = ['', 'London', 'Manchester', 'Liverpool', 'Birmingham']; //TODO: Get this from a service
-  statuses = ['On', 'Off']; //TODO: Get this from a service
+  statuses = ['On', 'Off'];
   bidMin = 50;
-  eBalance = 1000; // TODO: Get this from a service
+  eBalance = 0;
   tempEBalance = this.eBalance;
   formType: string = 'add';
   isActive: boolean = false;
@@ -46,22 +47,22 @@ export class CampaignFormComponent implements OnInit {
   filteredKeywords: Observable<string[]> | undefined;
 
   campaignForm = new FormGroup({
-    campaignName: new FormControl('', Validators.required),
-    campaignKeywords: new FormControl('', Validators.required),
-    campaignBid: new FormControl('', [
+    name: new FormControl('', Validators.required),
+    keywords: new FormControl('', Validators.required),
+    bid: new FormControl('', [
       Validators.required,
       Validators.min(this.bidMin),
     ]),
-    campaignFund: new FormControl('', Validators.required),
-    campaignStatus: new FormControl(this.statuses[1], Validators.required),
-    campaignTown: new FormControl(this.towns[0], [
+    fund: new FormControl('', Validators.required),
+    status: new FormControl(this.statuses[1], Validators.required),
+    town: new FormControl(this.towns[0], [
       Validators.required,
       Validators.minLength(1),
     ]),
-    campaignRadius: new FormControl('', Validators.required),
+    radius: new FormControl('', Validators.required),
   });
 
-  constructor() {
+  constructor(private CampaignsService: CampaignsService) {
     events.listen('initializeAddForm', () => {
       this.formType = 'add';
       this.isActive ? null : this.toggleActive();
@@ -73,12 +74,18 @@ export class CampaignFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.campaignForm.get('campaignFund')?.valueChanges.subscribe((value) => {
+    this.CampaignsService.getData().subscribe((response) => {
+      let data = response.emeraldAccountBalance;
+      this.eBalance = data;
+      this.tempEBalance = this.eBalance;
+    });
+
+    this.campaignForm.get('fund')?.valueChanges.subscribe((value) => {
       this.updateTempEBalance(value);
     });
 
     this.filteredKeywords = this.campaignForm
-      .get('campaignKeywords')
+      .get('keywords')
       ?.valueChanges.pipe(
         startWith(''),
         map((value) => this._filter(value || ''))
@@ -106,13 +113,14 @@ export class CampaignFormComponent implements OnInit {
   }
 
   addCampaign() {
-    console.log('Write adding campaign logic!');
+    events.emit('addCampaign', this.campaignForm.value);
+    console.log(this.campaignForm.value);
     this.campaignForm.reset();
     this.isActive ? this.toggleActive() : null;
   }
 
   editCampaign() {
-    console.log('Write editing logic!');
+    events.emit('editCampaign', this.campaignForm.value);
     this.campaignForm.reset();
     this.isActive ? this.toggleActive() : null;
   }

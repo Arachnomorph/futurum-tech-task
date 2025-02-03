@@ -4,29 +4,28 @@
 >
   <form [formGroup]="campaignForm" class="campaign-form__form">
     <div class="campaign-form__form-group">
-      <label for="campaignName">Name</label>
+      <label for="name">Name</label>
       <input
         type="text"
-        id="campaignName"
-        name="campaignName"
-        formControlName="campaignName"
+        id="name"
+        name="name"
+        formControlName="name"
         required
       />
-      @if (campaignForm.get('campaignName')?.invalid &&(
-      campaignForm.get('campaignName')?.dirty ||
-      campaignForm.get('campaignName')?.touched)) {
+      @if (campaignForm.get('name')?.invalid &&( campaignForm.get('name')?.dirty
+      || campaignForm.get('name')?.touched)) {
       <div class="campaign-name-error__container">
         <p class="form-error">Name required</p>
       </div>
       }
     </div>
     <div class="campaign-form__form-group">
-      <label for="campaignKeywords">Keywords</label>
+      <label for="keywords">Keywords</label>
       <input
         type="text"
-        id="campaignKeywords"
-        name="campaignKeywords"
-        formControlName="campaignKeywords"
+        id="keywords"
+        name="keywords"
+        formControlName="keywords"
         matInput
         required
         [matAutocomplete]="auto"
@@ -36,52 +35,44 @@
         <mat-option [value]="word">{{ word }}</mat-option>
         }
       </mat-autocomplete>
-      @if (campaignForm.get('campaignKeywords')?.invalid &&(
-      campaignForm.get('campaignKeywords')?.dirty ||
-      campaignForm.get('campaignKeywords')?.touched)) {
+      @if (campaignForm.get('keywords')?.invalid &&(
+      campaignForm.get('keywords')?.dirty ||
+      campaignForm.get('keywords')?.touched)) {
       <div class="campaign-keywords-error__container">
         <p class="form-error">At least one keyword required</p>
       </div>
       }
     </div>
     <div class="campaign-form__form-group">
-      <label for="campaingBid">Bid amount</label>
-      <input
-        type="number"
-        id="campaingBid"
-        name="campaingBid"
-        formControlName="campaignBid"
-        required
-      />
-      @if (campaignForm.get('campaignBid')?.invalid &&(
-      campaignForm.get('campaignBid')?.dirty ||
-      campaignForm.get('campaignBid')?.touched)) {
+      <label for="bid">Bid amount</label>
+      <input type="number" id="bid" name="bid" formControlName="bid" required />
+      @if (campaignForm.get('bid')?.invalid &&( campaignForm.get('bid')?.dirty
+      || campaignForm.get('bid')?.touched)) {
       <div class="campaign-bid-error__container">
         <p class="form-error">
-          @if (campaignForm.get('campaignBid')?.hasError('min')) { Bid amount
-          must be at least {{ this.bidMin }}
-          } @if (campaignForm.get('campaignBid')?.hasError('required')) { Bid
-          amount required }
+          @if (campaignForm.get('bid')?.hasError('min')) { Bid amount must be at
+          least {{ this.bidMin }}
+          } @if (campaignForm.get('bid')?.hasError('required')) { Bid amount
+          required }
         </p>
       </div>
       }
     </div>
     <div class="campaign-form__form-group">
-      <label for="campaignFund">Campaign fund</label>
+      <label for="fund">Campaign fund</label>
       <input
         type="number"
-        id="campaignFund"
-        name="campaignFund"
-        formControlName="campaignFund"
+        id="fund"
+        name="fund"
+        formControlName="fund"
         required
       />
       <div class="fund-extras">
         <p class="emerald-balance">
           Emerald Account balance: {{ this.tempEBalance }}
         </p>
-        @if (campaignForm.get('campaignFund')?.invalid &&(
-        campaignForm.get('campaignFund')?.dirty ||
-        campaignForm.get('campaignFund')?.touched)) {
+        @if (campaignForm.get('fund')?.invalid &&(
+        campaignForm.get('fund')?.dirty || campaignForm.get('fund')?.touched)) {
         <div class="campaign-fund-error__container">
           <p class="form-error">Fund required</p>
         </div>
@@ -95,13 +86,13 @@
         <div class="radio-item">
           <input
             type="radio"
-            id="campaignStatus{{ status }}"
+            id="status{{ status }}"
             value="{{ status }}"
-            name="campaignStatus"
-            formControlName="campaignStatus"
+            name="status"
+            formControlName="status"
             required
           />
-          <label class="radio-label" for="campaignStatus{{ status }}">{{
+          <label class="radio-label" for="status{{ status }}">{{
             status
           }}</label>
         </div>
@@ -109,38 +100,38 @@
       </div>
     </div>
     <div class="campaign-form__form-group">
-      <label for="campaignTown">Town</label>
+      <label for="town">Town</label>
       <select
-        id="campaignTown"
-        name="campaignTown"
-        formControlName="campaignTown"
+        id="town"
+        name="town"
+        formControlName="town"
         required
       >
         @for (town of towns; track town) {
         <option value="{{ town }}">{{ town }}</option>
         }
       </select>
-      @if (campaignForm.get('campaignTown')?.invalid &&(
-      campaignForm.get('campaignTown')?.dirty ||
-      campaignForm.get('campaignTown')?.touched)) {
+      @if (campaignForm.get('town')?.invalid &&(
+      campaignForm.get('town')?.dirty ||
+      campaignForm.get('town')?.touched)) {
       <div class="campaign-town-error__container">
         <p class="form-error">Town required</p>
       </div>
       }
     </div>
     <div class="campaign-form__form-group">
-      <label for="campaignRadius">Radius</label>
+      <label for="radius">Radius</label>
       <input
         type="number"
-        id="campaignRadius"
-        name="campaignRadius"
-        formControlName="campaignRadius"
+        id="radius"
+        name="radius"
+        formControlName="radius"
         required
       />
       <p>km</p>
-      @if (campaignForm.get('campaignRadius')?.invalid &&(
-      campaignForm.get('campaignRadius')?.dirty ||
-      campaignForm.get('campaignRadius')?.touched)) {
+      @if (campaignForm.get('radius')?.invalid &&(
+      campaignForm.get('radius')?.dirty ||
+      campaignForm.get('radius')?.touched)) {
       <div class="campaign-radius-error__container">
         <p class="form-error">Radius required (can be 0)</p>
       </div>
