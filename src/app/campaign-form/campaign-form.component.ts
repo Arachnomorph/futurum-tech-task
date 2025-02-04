@@ -4,6 +4,9 @@ import {
   FormControl,
   FormGroup,
   Validators,
+  ValidatorFn,
+  ValidationErrors,
+  AbstractControl,
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
@@ -40,7 +43,7 @@ export class CampaignFormComponent implements OnInit {
     isDeleted: new FormControl(false),
     id: new FormControl(0),
     name: new FormControl('', Validators.required),
-    keywords: new FormControl(''),
+    keywords: new FormControl('', this.arrayIsNotEmpty(this.savedKeywords)),
     bid: new FormControl('', [
       Validators.required,
       Validators.min(this.bidMin),
@@ -84,6 +87,17 @@ export class CampaignFormComponent implements OnInit {
         startWith(''),
         map((value) => this._filter(value || ''))
       );
+  }
+
+  private arrayIsNotEmpty(array: string[]): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      if (array.length > 0) {
+        return null;
+      } else {
+        console.log(`custom validator error: ${array} is empty`);
+        return { arrayIsEmpty: 'true' };
+      }
+    };
   }
 
   private _filter(value: string): string[] {
