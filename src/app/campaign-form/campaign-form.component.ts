@@ -58,13 +58,26 @@ export class CampaignFormComponent implements OnInit {
   });
 
   constructor(private CampaignsService: CampaignsService) {
-    events.listen('initializeAddForm', () => {
-      this.formType = 'add';
-      this.isActive ? null : this.toggleActive();
+    events.listen('initializeAddForm', (data) => {
+      if (!this.isActive) {
+        this.formType = 'add';
+        this.isActive ? null : this.toggleActive();
+      }
     });
-    events.listen('initializeEditForm', () => {
+    events.listen('initializeEditForm', (data) => {
       this.formType = 'edit';
       this.isActive ? null : this.toggleActive();
+      this.campaignForm.patchValue({
+        isDeleted: data.isDeleted,
+        id: data.id,
+        name: data.name,
+        bid: data.bid,
+        fund: data.fund,
+        status: data.status,
+        // town: data.town,
+        radius: data.radius,
+      });
+      this.savedKeywords = data.keywords;
     });
   }
 

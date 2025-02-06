@@ -22,7 +22,7 @@ export class CampaignComponent {
 
   initializeEditForm() {
     events.emit('initializeEditForm', this.campaign);
-    // console.log(this.campaign.id);
+    console.log(this.campaign);
   }
 
   deleteCampaign() {

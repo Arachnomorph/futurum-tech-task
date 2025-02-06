@@ -7,7 +7,7 @@
       "keywords": ["foo", "bar"],
       "bid": 100,
       "fund": 1000,
-      "status": "on",
+      "status": "On",
       "town": "Gotham",
       "radius": 50
     },
@@ -18,7 +18,7 @@
       "keywords": ["foo", "bar"],
       "bid": 900,
       "fund": 9000,
-      "status": "off",
+      "status": "Off",
       "town": "Metropolis",
       "radius": 10
     }
