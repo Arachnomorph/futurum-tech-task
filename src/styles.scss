@@ -104,6 +104,7 @@ input[type="radio"] {
 .campaign-form__form-group {
   width: 100%;
   min-height: 80px;
+  padding-bottom: 30px;
   margin-bottom: vars.$small-margin;
 
   display: flex;
@@ -117,7 +118,7 @@ input[type="radio"] {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex-direction: row-reverse;
+  flex-direction: row;
 }
 
 .radio-group {
