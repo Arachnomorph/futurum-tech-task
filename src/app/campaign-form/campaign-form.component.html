@@ -163,7 +163,7 @@
       <button
         class="campaign-form__cancel-button"
         (click)="
-          toggleActive();
+          toggleIsActive();
           this.campaignForm.reset();
           this.savedKeywords = [];
           this.campaignForm.patchValue({ isDeleted: false, status: 'Off' })

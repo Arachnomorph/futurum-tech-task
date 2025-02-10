@@ -61,12 +61,13 @@ export class CampaignFormComponent implements OnInit {
     events.listen('initializeAddForm', (data) => {
       if (!this.isActive) {
         this.formType = 'add';
-        this.isActive ? null : this.toggleActive();
+        this.toggleIsActive();
       }
     });
     events.listen('initializeEditForm', (data) => {
+      this.savedKeywords = data.keywords;
       this.formType = 'edit';
-      this.isActive ? null : this.toggleActive();
+      this.isActive ? null : this.toggleIsActive();
       this.campaignForm.patchValue({
         isDeleted: data.isDeleted,
         id: data.id,
@@ -74,10 +75,14 @@ export class CampaignFormComponent implements OnInit {
         bid: data.bid,
         fund: data.fund,
         status: data.status,
-        // town: data.town,
+        town: data.town,
         radius: data.radius,
+
+        //FIX FUNKY STUFF ON SUBMIT: not every validation error clears,
+        // sometimes enter submits, sometimes not,
+        //on edit savedkeywords arent enough for validators
+        //
       });
-      this.savedKeywords = data.keywords;
     });
   }
 
@@ -105,6 +110,7 @@ export class CampaignFormComponent implements OnInit {
   private arrayIsNotEmpty(array: string[]): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       if (array.length > 0) {
+        console.log(`${array} is not empty`);
         return null;
       } else {
         console.log(`custom validator error: ${array} is empty`);
@@ -120,7 +126,7 @@ export class CampaignFormComponent implements OnInit {
     });
   }
 
-  toggleActive() {
+  toggleIsActive() {
     this.isActive = !this.isActive;
   }
 
@@ -128,7 +134,7 @@ export class CampaignFormComponent implements OnInit {
     let word = this.campaignForm.get('keywords')?.value;
     this.campaignForm.patchValue({ keywords: '' });
     if (typeof word === 'string') {
-      this.savedKeywords.push(' ' + word);
+      this.savedKeywords.push(word);
     }
   }
 
@@ -144,11 +150,11 @@ export class CampaignFormComponent implements OnInit {
   addCampaign() {
     let data = { form: this.campaignForm.value, words: this.savedKeywords };
     events.emit('addCampaign', data);
-    console.log(data);
+    // console.log(data);
     this.campaignForm.reset();
     this.savedKeywords = [];
     this.campaignForm.patchValue({ isDeleted: false, status: 'Off' });
-    this.isActive ? this.toggleActive() : null;
+    this.isActive ? this.toggleIsActive() : null;
   }
 
   editCampaign() {
@@ -156,6 +162,6 @@ export class CampaignFormComponent implements OnInit {
     this.campaignForm.reset();
     this.savedKeywords = [];
     this.campaignForm.patchValue({ isDeleted: false, status: 'Off' });
-    this.isActive ? this.toggleActive() : null;
+    this.isActive ? this.toggleIsActive() : null;
   }
 }

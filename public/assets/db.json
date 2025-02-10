@@ -8,7 +8,7 @@
       "bid": 100,
       "fund": 1000,
       "status": "On",
-      "town": "Gotham",
+      "town": "Edgware",
       "radius": 50
     },
     {
@@ -19,7 +19,7 @@
       "bid": 900,
       "fund": 9000,
       "status": "Off",
-      "town": "Metropolis",
+      "town": "Highworth",
       "radius": 10
     }
   ],
